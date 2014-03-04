@@ -48,17 +48,26 @@ validate_number() {
   return test -z $(echo "$x" | tr -d '[0-9]')
 }
 
+url=http://nyc.sh/rsvp
+get_wget() {
+  wget "$url"
+}
+get_curl() {
+  curl -d "name=$1" -d "email.address=$2" -d "how.many=$3" "$url"
+}
+get_other() {
+  echo 'Copy this to an email, and send it to _@thomaslevine.com.'
+  echo "name,email.address,how.many"
+}
+
 main() {
   # HTTP GET requests
   if which wget > /dev/null; then
-    alias get='wget -O -'
+    alias get=get_wget
   elif which curl > /dev/null; then
-    aiias get=curl
+    alias get=get_curl
   else
-    get() {
-      echo 'Copy this to an email, and send it to _@thomaslevine.com.'
-      echo ""
-    }
+    alias get=get_other
   fi
 
   # Respond if you please.
@@ -70,8 +79,9 @@ main() {
   
   if test "$raw_guests" = y; then
     guests=$(ask 'How many people other than you?' 'Please enter a number, like "1" or "2".' )
+    how_many=$(($guests + 1))
   else
-    guests=0
+    how_many=1
   fi
 }
 
