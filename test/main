@@ -1,11 +1,7 @@
 #!/bin/sh
 set -e
 export TESTING=true
-. ../nyc.sh 
-
-get() {
-  echo "$1,$2,$3" > /tmp/a
-}
-
-printf 'Thomas Levine\n_@thomaslevine.com\ny\n\n1'|main get
-cat /tmp/a
+. ../nyc.sh
+rm -f /tmp/nyc.sh_test
+printf 'Thomas Levine\n_@thomaslevine.com\ny\n\n1'|main
+grep 'Thomas Levine' /tmp/nyc.sh_test
