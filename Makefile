@@ -1,4 +1,4 @@
 index.html:
-	printf partials/head > index.html
-	printf nyc.sh > index.html
-	printf partials/foot > index.html
+	cat partials/head | tr -d '\n' >> index.html
+	cat nyc.sh                     >> index.html
+	cat partials/foot | tr -d '\n' >> index.html
