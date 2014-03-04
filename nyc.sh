@@ -48,9 +48,9 @@ validate_number() {
   return test -z $(echo "$x" | tr -d '[0-9]')
 }
 
-url=http://nyc.sh/rsvp
+url=http://nyc.sh/rsvp # Switch this for another form processer so we don't have to run it.
 get_wget() {
-  wget "$url"
+  wget --post-data "name=$1&email.address=$2&how.many=$3" "$url"
 }
 get_curl() {
   curl -d "name=$1" -d "email.address=$2" -d "how.many=$3" "$url"
