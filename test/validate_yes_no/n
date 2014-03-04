@@ -3,4 +3,4 @@ set -e
 export TESTING=true
 . ../../nyc.sh
 
-validate_yes_no y
+validate_yes_no n

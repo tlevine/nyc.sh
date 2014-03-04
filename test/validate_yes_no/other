@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+export TESTING=true
+. ../../nyc.sh
+
+! validate_yes_no aoeu
+! validate_yes_no Yes
+! validate_yes_no no
