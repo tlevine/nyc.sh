@@ -1,7 +1,0 @@
-#!/bin/sh
-set -e
-export TESTING=true
-. ../nyc.sh
-rm -f /tmp/nyc.sh_test
-printf 'Thomas Levine\n_@thomaslevine.com\ny\n\n1'|main
-grep 'Thomas Levine' /tmp/nyc.sh_test

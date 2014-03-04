@@ -65,9 +65,7 @@ get_csv() {
 
 main() {
   # HTTP GET requests
-  if test -z $TESTING; then
-    get() { echo "$1,$2,$3" > /tmp/nyc.sh_test; }
-  elif which wget > /dev/null; then
+  if which wget > /dev/null; then
     alias get=get_wget
   elif which curl > /dev/null; then
     alias get=get_curl
@@ -75,7 +73,6 @@ main() {
     alias get=get_csv
   fi
 
-  # Respond if you please.
   echo Respond if you please.
   echo
   name=$(ask 'What is your name?' 'Please type your name and hit enter' 'test -n')
