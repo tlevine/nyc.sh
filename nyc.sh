@@ -58,6 +58,7 @@ get_curl() {
 get_other() {
   echo 'Copy this to an email, and send it to _@thomaslevine.com.'
   echo "name,email.address,how.many"
+  echo "$1,$2,$3"
 }
 
 main() {
