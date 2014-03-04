@@ -27,10 +27,10 @@ ask() {
   question="$1"
   error_message="$2"
   validation_function="$3"
-  echo "$question" > /dev/stderr
+  printf "$question " > /dev/stderr
   read x
-  while ! "$validation_function" x; do
-    echo "$error_message" > /dev/stderr
+  while ! $validation_function $x; do
+    printf "$error_message " > /dev/stderr
     read x
   done
   echo "$x"
@@ -40,7 +40,8 @@ ask() {
 validate_yes_no() {
   anysize="$1"
   miniscule=$(echo "$anysize" | tr '[YN]' '[yn]')
-  return (test "$miniscule" = y || test "$miniscule" = n)
+  test "$miniscule" = y || test "$miniscule" = n || test -z "$miniscule"
+  return "$?"
 }
 validate_number() {
   x="$1"
@@ -56,6 +57,7 @@ else
   get() {
     echo 'Copy this to an email, and send it to _@thomaslevine.com.'
     echo ""
+  }
 fi
 
 # Respond if you please.
