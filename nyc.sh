@@ -22,7 +22,32 @@ Respond if you please by running this file.
     get http://nyc.sh/nyc.sh | sh
 ' > /dev/null
 
+# Ask a question
+ask() {
+  question="$1"
+  error_message="$2"
+  validation_function="$3"
+  echo "$question" > /dev/stderr
+  read x
+  while ! "$validation_function" x; do
+    echo "$error_message" > /dev/stderr
+    read x
+  done
+  echo "$x"
+}
 
+# Validations
+validate_yes_no() {
+  anysize="$1"
+  miniscule=$(echo "$anysize" | tr '[YN]' '[yn]')
+  return (test "$miniscule" = y || test "$miniscule" = n)
+}
+validate_number() {
+  x="$1"
+  return test -z $(echo "$x" | tr -d '[0-9]')
+}
+
+# HTTP GET requests
 if which wget > /dev/null; then
   alias get='wget -O -'
 elif which curl > /dev/null; then
@@ -33,15 +58,17 @@ else
     echo ""
 fi
 
-echo 'What is your name?'
-read name
-echo 'What is your email address?'
-read email_address
-echo 'Is anyone else coming with you? (y/N)'
-read raw_guests
+# Respond if you please.
+echo Respond if you please.
+echo
+name=$(ask 'What is your name?' 'Please type your name and hit enter' 'test -n')
+email_address=$(ask 'What is your email address?' 'Please type your email address and hit enter.' 'test -n')
+raw_guests=$(ask 'Is anyone else coming with you? (y/N)' '"y" or "Y" for yes, "n" or "N" for no' validate_yes_no)
 
-if guests; then
-  echo 'How many people other than you? (1/2/3)'
+if test "$raw_guests" = y; then
+  guests=$(ask 'How many people other than you?' 'Please enter a number, like "1" or "2".' )
+else
+  guests=0
 fi
 
 get 
