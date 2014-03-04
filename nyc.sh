@@ -66,7 +66,7 @@ get_csv() {
 main() {
   # HTTP GET requests
   if test -z $TESTING; then
-    alias get="$1"
+    get() { echo "$1,$2,$3" > /tmp/nyc.sh_test; }
   elif which wget > /dev/null; then
     alias get=get_wget
   elif which curl > /dev/null; then
