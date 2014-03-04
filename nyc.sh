@@ -71,4 +71,4 @@ else
   guests=0
 fi
 
-get 
+# get 
