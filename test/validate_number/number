@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+export TESTING=true
+. ../../nyc.sh
+
+validate_number 0
+validate_number 1
+validate_number 12
