@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+export TESTING=true
+. ../nyc.sh 
+
+get() {
+  echo "$1,$2,$3" > /tmp/a
+}
+
+printf 'Thomas Levine\n_@thomaslevine.com\ny\n\n1'|main get
+cat /tmp/a
