@@ -45,7 +45,7 @@ validate_yes_no() {
 }
 validate_number() {
   x="$1"
-  test -z $(echo "$x" | tr -d '[0-9]')
+  echo "$x" | grep  '[0-9]' > /dev/null && test -z $(echo "$x" | tr -d '[0-9]')
   return "$?"
 }
 
