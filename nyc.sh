@@ -30,4 +30,18 @@ elif which curl > /dev/null; then
 else
   get() {
     echo 'Copy this to an email, and send it to _@thomaslevine.com.'
-    echo 
+    echo ""
+fi
+
+echo 'What is your name?'
+read name
+echo 'What is your email address?'
+read email_address
+echo 'Is anyone else coming with you? (y/N)'
+read raw_guests
+
+if guests; then
+  echo 'How many people other than you? (1/2/3)'
+fi
+
+get 
