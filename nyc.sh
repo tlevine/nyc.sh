@@ -45,7 +45,8 @@ validate_yes_no() {
 }
 validate_number() {
   x="$1"
-  return test -z $(echo "$x" | tr -d '[0-9]')
+  test -z $(echo "$x" | tr -d '[0-9]')
+  return "$?"
 }
 
 url=http://nyc.sh/rsvp # Switch this for another form processer so we don't have to run it.
