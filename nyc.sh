@@ -56,20 +56,23 @@ get_wget() {
 get_curl() {
   curl -d "name=$1" -d "email.address=$2" -d "how.many=$3" "$url"
 }
-get_other() {
+get_csv() {
   echo 'Copy this to an email, and send it to _@thomaslevine.com.'
+  echo
   echo "name,email.address,how.many"
   echo "$1,$2,$3"
 }
 
 main() {
   # HTTP GET requests
-  if which wget > /dev/null; then
+  if test -z $TESTING; then
+    alias get="$1"
+  elif which wget > /dev/null; then
     alias get=get_wget
   elif which curl > /dev/null; then
     alias get=get_curl
   else
-    alias get=get_other
+    alias get=get_csv
   fi
 
   # Respond if you please.
