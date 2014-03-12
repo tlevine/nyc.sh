@@ -33,12 +33,8 @@ def write():
     if {'name','email.address','how.many'}.issubset(set(request.forms)):
         r = db.Response(request.forms['name'], request.forms['email.address'], request.forms['how.many'])
         queue.put(r)
-        return 'echo Your response has been received.'
+        return 'echo Your response has been received.\nwget -O - http://nyc.sh/attending'
     else:
         abort(400, "You must specify \"name\", \"email.address\" and \"how.many\".")
-
-@app.route('/*')
-def bad():
-    abort(404, 'exit 1')
 
 app.run()
