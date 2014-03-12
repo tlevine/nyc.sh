@@ -1,8 +1,18 @@
+import csv, os
+from collections import namedtuple
+
 Response = namedtuple('Response', ['name','email_address','how_many'])
-def append():
+fn = 'attending.csv'
+
+def read():
+    with open(fn) as fp:
+        attending = fp.read()
+    return attending
+
+def write():
     try:
-        needs_header = not os.path.exists(fp)
-        with open('attending.csv', 'a') as fp:
+        needs_header = not os.path.exists(fn)
+        with open(fn, 'a') as fp:
             w = csv.DictWriter(fp, fieldnames = ['submitted','name','email.address','how.many'])
             if needs_header:
                 w.writeheader()

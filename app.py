@@ -1,11 +1,11 @@
 import datetime
-from collections import namedtuple
+import os
 
 from bottle import Bottle, request, response, abort, redirect
 
 import db
 
-sink = db.append()
+sink = db.write()
 next(sink)
 
 app = Bottle()
@@ -23,9 +23,7 @@ def slash():
 @app.get('/attending')
 def read():
     response.set_header('Content-Type', 'text/csv')
-    with open('attending.csv') as fp:
-        attending = fp.read()
-    return attending
+    return db.read()
 
 @app.post('/attending')
 def write():
