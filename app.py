@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-import datetime
 import os
+from queue import Queue
+from threading import Thread
 
 from bottle import Bottle, request, response, abort, redirect
 
 import db
 
-sink = db.write()
-next(sink)
+queue = Queue()
+Thread(None, target = db.pull, args = (queue,), daemon = True).start()
 
 app = Bottle()
 with open('nyc.sh', 'r') as fp:
@@ -29,11 +30,15 @@ def read():
 
 @app.post('/attending')
 def write():
-    if {'name','email.address','how.many'}.issubset(set(request.query)):
-        r = db.Response(request.query['name'], request.query['email.address'], request.query['how.many'])
-        sink.send(r)
-        return 'Your response has been received.'
+    if {'name','email.address','how.many'}.issubset(set(request.forms)):
+        r = db.Response(request.forms['name'], request.forms['email.address'], request.forms['how.many'])
+        queue.put(r)
+        return 'echo Your response has been received.'
     else:
         abort(400, "You must specify \"name\", \"email.address\" and \"how.many\".")
+
+@app.route('/*')
+def bad():
+    abort(404, 'exit 1')
 
 app.run()
