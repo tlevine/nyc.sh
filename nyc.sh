@@ -1,25 +1,17 @@
 #!/bin/sh
 set -e
 echo '
-First NYC Shell meeting! March 20-something at some place in New York
+First NYC Shell meeting! April 16 at some place in New York
 
 * Something cool, by Jeroen Janssens
 * Tests for the shell, by Thomas Levine
 * Data pipelines, by someone else
 
-Respond if you please by running this file.
+Respond if you please by running this file. Either of these should work.
 
-    if which wget > /dev/null; then
-      alias get='wget -O -'
-    elif which curl > /dev/null; then
-      aiias get=curl
-    else
-      get() {
-        printf "Download this file and run it.\n$1" > /dev/stderr
-        return 1
-      }
-    fi
-    get http://nyc.sh/nyc.sh | sh
+    wget -O - http://nyc.sh/nyc.sh | sh
+    curl http://nyc.sh/nyc.sh | sh
+
 ' > /dev/null
 
 # Ask a question
