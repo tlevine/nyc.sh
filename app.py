@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import datetime
 import os
 
@@ -27,8 +28,8 @@ def read():
 
 @app.post('/attending')
 def write():
-    if {'name','email.address','how.many'}.issubset(set(request.params)):
-        r = db.Response(request.params['name'], request.params['email.address'], request.params['how.many'])
+    if {'name','email.address','how.many'}.issubset(set(request.query)):
+        r = db.Response(request.query['name'], request.query['email.address'], request.query['how.many'])
         sink.send(r)
         return 'Your response has been received.'
     else:
