@@ -15,6 +15,7 @@ with open('nyc.sh', 'r') as fp:
 
 @app.get('/')
 def index():
+    response.set_header('Content-Type', 'text/x-shellscript')
     return nyc_sh
 
 @app.route('/attending/')
