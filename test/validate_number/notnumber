@@ -1,8 +1,0 @@
-#!/bin/sh
-set -e
-export TESTING=true
-. ../../nyc.sh
-
-! validate_number one
-! validate_number y
-#! validate_number ''

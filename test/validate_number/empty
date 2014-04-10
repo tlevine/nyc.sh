@@ -1,8 +1,0 @@
-#!/bin/sh
-set -e
-export TESTING=true
-. ../../nyc.sh
-
-! validate_number ''
-! validate_number '\n\n'
-! validate_number $notdefined
