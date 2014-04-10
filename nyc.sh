@@ -22,4 +22,5 @@
 # * Why you prefer one shell over another
 # * A shell program you've written
 #
-# Respond if you please by emailing 
+# Respond if you please by going here.
+# (insert a link)
